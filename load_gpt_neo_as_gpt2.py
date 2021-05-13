@@ -1,3 +1,4 @@
+# function to load gpt-neo models using the huggingface transformers GPT2 implementation
 import torch
 from transformers import AutoConfig, GPT2LMHeadModel, AutoTokenizer, GPT2Config
 from transformers.file_utils import cached_path, WEIGHTS_NAME, hf_bucket_url
@@ -96,7 +97,7 @@ def load_as_gpt2(model_name_or_path):
 if __name__ == "__main__":
     print("half precision can give different results, but float precision matches\n")
 
-    model = load_as_gpt2("EleutherAI/gpt-neo-125M").cuda().eval().float()
+    model = load_as_gpt2("EleutherAI/gpt-neo-1.3B").cuda().eval().float()
     tokenizer = AutoTokenizer.from_pretrained('gpt2', fast=True)
 
     ids = tokenizer.encode("In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns spoke perfect English.", return_tensors='pt').cuda()
@@ -106,7 +107,7 @@ if __name__ == "__main__":
     print("loaded as GPT2: " + tokenizer.decode(generated_ids) + "\n")
 
     from transformers import GPTNeoForCausalLM
-    model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-125M").cuda().eval().float()
+    model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B").cuda().eval().float()
 
     torch.manual_seed(0)
     generated_ids = model.generate(ids, do_sample=True, temperature=1.2, use_cache=True, max_length=800, pad_token_id=50256)[0]
