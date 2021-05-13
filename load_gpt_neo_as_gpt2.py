@@ -92,23 +92,41 @@ def load_as_gpt2(model_name_or_path):
         del converted[key]
     del converted
 
-    return model
+    return model, gpt2_config
 
 if __name__ == "__main__":
     print("half precision can give different results, but float precision matches\n")
 
-    model = load_as_gpt2("EleutherAI/gpt-neo-1.3B").cuda().eval().float()
+    model, config = load_as_gpt2("EleutherAI/gpt-neo-125M")
+    model = model.cuda().eval().float()
     tokenizer = AutoTokenizer.from_pretrained('gpt2', fast=True)
 
     ids = tokenizer.encode("In a shocking finding, scientist discovered a herd of unicorns living in a remote, previously unexplored valley, in the Andes Mountains. Even more surprising to the researchers was the fact that the unicorns spoke perfect English.", return_tensors='pt').cuda()
 
     torch.manual_seed(0)
-    generated_ids = model.generate(ids, do_sample=True, temperature=1.2, use_cache=True, max_length=800, pad_token_id=50256)[0]
+    generated_ids = model.generate(ids, do_sample=True, temperature=1.2, use_cache=True, max_length=600, pad_token_id=50256)[0]
     print("loaded as GPT2: " + tokenizer.decode(generated_ids) + "\n")
 
     from transformers import GPTNeoForCausalLM
-    model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-1.3B").cuda().eval().float()
+    neo_model = GPTNeoForCausalLM.from_pretrained("EleutherAI/gpt-neo-125M").cuda().eval().float()
 
     torch.manual_seed(0)
-    generated_ids = model.generate(ids, do_sample=True, temperature=1.2, use_cache=True, max_length=800, pad_token_id=50256)[0]
+    generated_ids = neo_model.generate(ids, do_sample=True, temperature=1.2, use_cache=True, max_length=600, pad_token_id=50256)[0]
     print("loaded as GPT-Neo: " + tokenizer.decode(generated_ids) + "\n")
+    del neo_model
+
+    print("saving as vanilla gpt2 model")
+    import os
+    try:
+        os.mkdir("gpt2-125M-neo")
+    except:
+        pass
+    config.to_json_file("gpt2-125M-neo/config.json")
+    torch.save(model.state_dict(), "gpt2-125M-neo/pytorch_model.bin")
+
+    print("loading vanilla gpt2 model")
+    model = GPT2LMHeadModel.from_pretrained("gpt2-125M-neo").cuda().eval().float()
+
+    torch.manual_seed(0)
+    generated_ids = model.generate(ids, do_sample=True, temperature=1.2, use_cache=True, max_length=600, pad_token_id=50256)[0]
+    print("loaded as vanilla GPT2: " + tokenizer.decode(generated_ids) + "\n")
