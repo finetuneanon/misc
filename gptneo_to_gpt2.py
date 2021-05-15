@@ -1,4 +1,4 @@
-# convert GPT-Neo Huggingface Transformers models to GPT2
+# convert GPT-Neo Huggingface Transformers models to GPT2 with fp16 weights
 import torch
 from transformers import AutoConfig, GPT2LMHeadModel, AutoTokenizer, GPT2Config
 from transformers.file_utils import cached_path, WEIGHTS_NAME, hf_bucket_url
