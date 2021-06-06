@@ -2,6 +2,11 @@
 
 better is: lower loss, higher acc and acc_norm
 
+* [LAMBADA](https://arxiv.org/abs/1606.06031)
+* [WinoGrande](https://arxiv.org/abs/1907.10641)
+* [PIQA](https://arxiv.org/abs/1911.11641)
+* [HellaSwag](https://arxiv.org/abs/1905.07830)
+
 ## EleutherAI/gpt-neo-2.7B, fp16
 ```
 mystery literature evalset loss: 2.63671875
