@@ -1,8 +1,8 @@
-# evalset + [lm eval harness](https://github.com/EleutherAI/lm-evaluation-harness/), all fp16
+# evalset + [lm eval harness](https://github.com/EleutherAI/lm-evaluation-harness/)
 
 better is: lower loss, higher acc and acc_norm
 
-## EleutherAI/gpt-neo-2.7B
+## EleutherAI/gpt-neo-2.7B, fp16
 ```
 mystery literature evalset loss: 2.63671875
 ```
@@ -24,7 +24,26 @@ mystery literature evalset loss: 2.63671875
 |          |acc_norm       |0.5511|
 |          |acc_norm_stderr|0.0050|
 
-## gpt2-xl
+## EleutherAI/gpt-neo-2.7B, fp32
+
+|   Task   |    Metric     | Value |
+|----------|---------------|------:|
+|lambada   |ppl            |5.6257|
+|          |ppl_stderr     |0.1389|
+|          |acc            |0.6224|
+|          |acc_stderr     |0.0068|
+|winogrande|acc            |0.5959|
+|          |acc_stderr     |0.0138|
+|piqa      |acc            |0.7220|
+|          |acc_stderr     |0.0105|
+|          |acc_norm       |0.7291|
+|          |acc_norm_stderr|0.0104|
+|hellaswag |acc            |0.4198|
+|          |acc_stderr     |0.0049|
+|          |acc_norm       |0.5521|
+|          |acc_norm_stderr|0.0050|
+
+## gpt2-xl, fp16
 ```
 mystery literature evalset loss: 2.8828125
 ```
@@ -44,4 +63,23 @@ mystery literature evalset loss: 2.8828125
 |hellaswag |acc            | 0.3930|
 |          |acc_stderr     | 0.0049|
 |          |acc_norm       | 0.5039|
+|          |acc_norm_stderr| 0.0050|
+
+## gpt2-xl, fp32
+
+|   Task   |    Metric     | Value |
+|----------|---------------|------:|
+|lambada   |ppl            |10.6341|
+|          |ppl_stderr     | 0.3305|
+|          |acc            | 0.5121|
+|          |acc_stderr     | 0.0070|
+|winogrande|acc            | 0.5793|
+|          |acc_stderr     | 0.0139|
+|piqa      |acc            | 0.7084|
+|          |acc_stderr     | 0.0106|
+|          |acc_norm       | 0.7051|
+|          |acc_norm_stderr| 0.0106|
+|hellaswag |acc            | 0.3931|
+|          |acc_stderr     | 0.0049|
+|          |acc_norm       | 0.5042|
 |          |acc_norm_stderr| 0.0050|
