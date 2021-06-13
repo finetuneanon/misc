@@ -7,6 +7,28 @@ better is: lower loss, higher acc and acc_norm
 * [PIQA](https://arxiv.org/abs/1911.11641)
 * [HellaSwag](https://arxiv.org/abs/1905.07830)
 
+## GPT-J-6B, fp16
+```
+mystery literature evalset loss: 2.451171875
+```
+
+|   Task   |    Metric     |Value |
+|----------|---------------|-----:|
+|lambada   |ppl            |4.1060|
+|          |ppl_stderr     |0.0886|
+|          |acc            |0.6833|
+|          |acc_stderr     |0.0065|
+|winogrande|acc            |0.6480|
+|          |acc_stderr     |0.0134|
+|piqa      |acc            |0.7541|
+|          |acc_stderr     |0.0100|
+|          |acc_norm       |0.7612|
+|          |acc_norm_stderr|0.0099|
+|hellaswag |acc            |0.4895|
+|          |acc_stderr     |0.0050|
+|          |acc_norm       |0.6614|
+|          |acc_norm_stderr|0.0047|
+
 ## EleutherAI/gpt-neo-2.7B, fp16
 ```
 mystery literature evalset loss: 2.63671875
